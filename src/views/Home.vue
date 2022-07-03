@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <CrudTable v-if="isLoggedIn" />
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapGetters } from "vuex";
+import { getterTypes } from "@/store/modules/auth";
+import CrudTable from "../components/CrudTable";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    CrudTable,
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: getterTypes.currentUser,
+      isLoggedIn: getterTypes.isLoggedIn,
+      isAnonymous: getterTypes.isAnonymous,
+    }),
+  },
+};
 </script>
