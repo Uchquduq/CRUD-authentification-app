@@ -2,7 +2,6 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <v-text class="font-weight-medium">CRUD TABLE APP</v-text>
         <v-spacer></v-spacer>
         <template v-if="isLoggedIn">
           <v-btn text class="mr-2">
@@ -56,8 +55,7 @@
         <v-row>
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <Login v-if="isAnonymous"/>
-              <router-view v-if="isLoggedIn"></router-view>
+              <router-view></router-view>
               <!--  -->
             </v-sheet>
           </v-col>
@@ -74,32 +72,28 @@ import {
   actionTypes,
 } from "@/store/modules/auth";
 import { mapGetters } from "vuex";
-import Login from "@/views/Login";
 
 export default {
-    data: () => ({}),
-    component: {
-        Login,
+  data: () => ({}),
+  computed: {
+    ...mapGetters({
+      currentUser: getterTypes.currentUser,
+      isLoggedIn: getterTypes.isLoggedIn,
+      isAnonymous: getterTypes.isAnonymous,
+    }),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch(authActionTypes.logout).then(() => {
+        this.$router.push({ name: "login" });
+      });
     },
-    computed: {
-        ...mapGetters({
-            currentUser: getterTypes.currentUser,
-            isLoggedIn: getterTypes.isLoggedIn,
-            isAnonymous: getterTypes.isAnonymous,
-        }),
-    },
-    methods: {
-        logout() {
-            this.$store.dispatch(authActionTypes.logout).then(() => {
-                this.$router.push({ name: "login" });
-            });
-        },
-    },
-    mounted() {
-        console.log("Hello app");
-        this.$store.dispatch(actionTypes.getCurrentUser);
-    },
-    components: { Login }
+  },
+  mounted() {
+    console.log("Hello app");
+    this.$store.dispatch(actionTypes.getCurrentUser);
+  },
+ 
 };
 </script>
 
