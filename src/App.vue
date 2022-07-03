@@ -56,7 +56,8 @@
         <v-row>
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <router-view></router-view>
+              <Login v-if="isAnonymous"/>
+              <router-view v-if="isLoggedIn"></router-view>
               <!--  -->
             </v-sheet>
           </v-col>
@@ -69,31 +70,36 @@
 <script>
 import {
   getterTypes,
-  actionTypes as authActionTypes, actionTypes
+  actionTypes as authActionTypes,
+  actionTypes,
 } from "@/store/modules/auth";
 import { mapGetters } from "vuex";
-
+import Login from "@/views/Login";
 
 export default {
-  data: () => ({}),
-  computed: {
-    ...mapGetters({
-      currentUser: getterTypes.currentUser,
-      isLoggedIn: getterTypes.isLoggedIn,
-      isAnonymous: getterTypes.isAnonymous,
-    }),
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch(authActionTypes.logout).then(() => {
-        this.$router.push({ name: "login" });
-      });
+    data: () => ({}),
+    component: {
+        Login,
     },
-  },
-  mounted() {
-    console.log("Hello app")
-    this.$store.dispatch(actionTypes.getCurrentUser)
-  }
+    computed: {
+        ...mapGetters({
+            currentUser: getterTypes.currentUser,
+            isLoggedIn: getterTypes.isLoggedIn,
+            isAnonymous: getterTypes.isAnonymous,
+        }),
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch(authActionTypes.logout).then(() => {
+                this.$router.push({ name: "login" });
+            });
+        },
+    },
+    mounted() {
+        console.log("Hello app");
+        this.$store.dispatch(actionTypes.getCurrentUser);
+    },
+    components: { Login }
 };
 </script>
 
