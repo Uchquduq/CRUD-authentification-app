@@ -2,17 +2,15 @@
   <v-app>
     <v-app-bar color="yellow" elevation="0">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      
+      <v-toolbar-title>E-commerce</v-toolbar-title>
 
-      <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-for="link in links" :key="link" text>
-        {{ link }}
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-card-title  elevation="0">
-        <v-text-field elevation="0"
+      <v-card-title>
+        <v-text-field 
+          solo
+          dense
           v-model="search"
-          solo dense  
           append-icon="mdi-magnify"
           label="Search"
           single-line
@@ -20,6 +18,9 @@
         ></v-text-field>
       </v-card-title>
 
+      <v-btn icon class="ml-1 mr-3">
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
       <v-avatar class="mr-2 ml-1" color="grey darken-1" size="32"></v-avatar>
     </v-app-bar>
 
@@ -45,9 +46,10 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-carousel class="mt-4"
+    <v-carousel
+      class="mt-4"
       cycle
-      height="400"
+      height="500"
       hide-delimiter-background
       show-arrows-on-hover
     >
@@ -59,7 +61,7 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    <v-main class="mt-4">
+    <v-main class="">
       <router-view></router-view>
     </v-main>
 
@@ -70,7 +72,7 @@
 <script>
 export default {
   data: () => ({
-    search: '',
+    search: "",
     drawer: false,
     group: null,
     links: ["Dashboard", "Messages", "Profile", "Updates"],
