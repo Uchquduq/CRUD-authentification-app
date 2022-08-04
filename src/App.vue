@@ -1,108 +1,89 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar app color="white" flat>
-      <v-container class="py-0 fill-height">
-        <v-spacer></v-spacer>
-        <template v-if="isLoggedIn">
-          <v-btn text class="mr-2">
-            <router-link
-              class="a font-weight-medium"
-              active-class="active"
-              :to="{ name: 'Home' }"
-              >CRUD</router-link
-            >
-          </v-btn>
+  <v-app>
+    <v-app-bar color="yellow" elevation="0">
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn text v-bind="attrs" v-on="on">
-                <v-avatar class="mr-2" color="primary" size="20"></v-avatar>
-                {{ currentUser.username }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-btn text @click="logout">
-                  Logout
-                </v-btn>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </template>
-        <template v-if="!isLoggedIn">
-          <v-btn text>
-            <router-link
-              class="a font-weight-medium"
-              active-class="active"
-              :to="{ name: 'login' }"
-              >Login in</router-link
-            >
-          </v-btn>
-          <v-btn text>
-            <router-link
-              class="a font-weight-medium"
-              active-class="active"
-              :to="{ name: 'register' }"
-              >Sign up</router-link
-            >
-          </v-btn>
-        </template>
-      </v-container>
+      <v-toolbar-title>Title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-for="link in links" :key="link" text>
+        {{ link }}
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-card-title  elevation="0">
+        <v-text-field elevation="0"
+          v-model="search"
+          solo dense  
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+
+      <v-avatar class="mr-2 ml-1" color="grey darken-1" size="32"></v-avatar>
     </v-app-bar>
 
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
-              <router-view></router-view>
-              <!--  -->
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
+    <v-navigation-drawer color="yellow" v-model="drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group
+          v-model="group"
+          active-class="black--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+    <v-carousel class="mt-4"
+      cycle
+      height="400"
+      hide-delimiter-background
+      show-arrows-on-hover
+    >
+      <v-carousel-item v-for="(slide, i) in slides" :key="i">
+        <v-sheet :color="colors[i]" height="100%">
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="text-h2">{{ slide }} Slide</div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <v-main class="mt-4">
+      <router-view></router-view>
     </v-main>
+
+    <!--  -->
   </v-app>
 </template>
 
 <script>
-import {
-  getterTypes,
-  actionTypes as authActionTypes,
-  actionTypes,
-} from "@/store/modules/auth";
-import { mapGetters } from "vuex";
-
 export default {
-  data: () => ({}),
-  computed: {
-    ...mapGetters({
-      currentUser: getterTypes.currentUser,
-      isLoggedIn: getterTypes.isLoggedIn,
-      isAnonymous: getterTypes.isAnonymous,
-    }),
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch(authActionTypes.logout).then(() => {
-        this.$router.push({ name: "login" });
-      });
-    },
-  },
-  mounted() {
-    console.log("Hello app");
-    this.$store.dispatch(actionTypes.getCurrentUser);
-  },
- 
+  data: () => ({
+    search: '',
+    drawer: false,
+    group: null,
+    links: ["Dashboard", "Messages", "Profile", "Updates"],
+    colors: [
+      "yellow",
+      "warning",
+      "pink darken-2",
+      "red lighten-1",
+      "deep-purple accent-4",
+    ],
+    slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+  }),
 };
 </script>
 
-<style scoped>
-.a {
-  color: black;
-  text-decoration: none;
-}
-.active {
-  color: blue;
-}
-</style>
+<style></style>
