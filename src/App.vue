@@ -18,8 +18,16 @@
         ></v-text-field>
       </v-card-title>
 
+      
+
       <v-btn icon class="ml-1 mr-3">
         <v-icon>mdi-cart</v-icon>
+      </v-btn>
+      <v-btn text>
+        Sign in
+      </v-btn>
+      <v-btn text>
+        Login
       </v-btn>
       <v-avatar class="mr-2 ml-1" color="grey darken-1" size="32"></v-avatar>
     </v-app-bar>

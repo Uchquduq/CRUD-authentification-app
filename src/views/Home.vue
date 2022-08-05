@@ -46,7 +46,14 @@
         <!--  -->
         <v-container>
           <v-row>
-            <v-col v-for="n in 9" :key="n" cols="4" class="">
+            <v-col
+              v-for="product in slicedPage"
+              :key="product.id"
+              md="4"
+              sm="6"
+              xs="12"
+              class=""
+            >
               <v-hover v-slot="{ hover }" open-delay="50">
                 <v-card
                   :elevation="hover ? 10 : 2"
@@ -55,18 +62,14 @@
                   class="mx-auto "
                   max-width="374"
                 >
-                  <v-img
-                    height="250"
-                    src="@/assets/images/products/smartphones/iphone13pro2.png"
-                    contain
-                  ></v-img>
+                  <v-img height="250" :src="product.img" contain></v-img>
 
-                  <v-card-title>iPhone 13 Pro Max 256GB</v-card-title>
+                  <v-card-title>{{ product.title }}</v-card-title>
 
                   <v-card-text>
                     <v-row align="center" class="mx-0">
                       <v-rating
-                        :value="5"
+                        :value="product.rating"
                         color="amber"
                         dense
                         half-increments
@@ -74,14 +77,12 @@
                         size="14"
                       ></v-rating>
 
-                      <div class="grey--text ms-4">
-                        5.0 (413)
+                      <div class="grey--text ms-2">
+                        {{ product.rating }} (413)
                       </div>
                     </v-row>
 
-                    <div class="mt-5 h6 text-black">
-                      1000 $
-                    </div>
+                    <div class="mt-5 h6 text-black">{{ product.price }} $</div>
                   </v-card-text>
 
                   <v-card-actions class="m-0 pt-0">
@@ -94,8 +95,12 @@
               </v-hover>
             </v-col>
           </v-row>
+
           <div class="text-center mt-3">
-            <v-pagination v-model="page" :length="6"></v-pagination>
+            <v-pagination
+              v-model="page"
+              :length="totalPage"
+            ></v-pagination>
           </div>
         </v-container>
       </v-sheet>
@@ -106,7 +111,56 @@
 <script>
 export default {
   name: "Home",
-  data: () => ({ page: 1, loading: false, selection: 1 }),
+  data: () => ({
+    page: 1,
+    loading: false,
+    selection: 1,
+    products: null,
+    showCards: 6,
+    currentItems: 0,
+  }),
+  watch: {
+    page: function(newValue) {
+      console.log(newValue)
+      this.incCardNumber()
+    }
+  },
+  computed: {
+    it() {
+      return this.$store.state.items;
+      
+    },
+    slicedPage() {
+      return this.products.slice(this.currentItems, this.showCards);
+    },
+    totalPage() {
+      return Math.ceil(this.it.length / 6);
+    },
+  },
+  created() {
+    this.products = this.it;
+  },
+  methods: {
+    incCardNumber() {
+      if (this.page <= 1) {
+        this.showCards = 6;
+        this.currentItems = 0;
+        console.log(this.currentItems, this.showCards);
+      }
+      else if (this.page > 1) {
+        this.currentItems = this.page * 6 - 6;
+        this.showCards = this.currentItems + 6;
+        console.log(this.currentItems, this.showCards);
+      }
+      else if (this.page >= this.totalPage) {
+        this.page = 0;
+        this.showCards = 6;
+        this.currentItems = 0;
+        console.log(this.currentItems, this.showCards);
+      }
+      console.log(this.currentItems, this.showCards);
+    },
+  },
 };
 </script>
 
