@@ -1,14 +1,53 @@
 <template>
-  <div>
+  <v-row>
+    <v-col v-for="product in cardArray" :key="product.id" md="4" sm="6" xs="12">
+      <v-hover v-slot="{ hover }" open-delay="50">
+        <v-card
+          :elevation="hover ? 10 : 2"
+          :class="{ 'on-hover': hover }"
+          class="mx-auto"
+          max-width="360"
+          to="/info"
+        >
+          <v-img max-height="250" :src="product.img" contain></v-img>
 
-  </div>
+          <v-card-title>{{ product.title }}</v-card-title>
+
+          <v-card-text>
+            <v-row align="center" class="mx-0">
+              <v-rating
+                :value="product.rating"
+                color="amber"
+                dense
+                half-increments
+                readonly
+                size="14"
+              ></v-rating>
+
+              <div class="grey--text ms-2">{{ product.rating }} (413)</div>
+            </v-row>
+
+            <div class="mt-5 h6 text-black">{{ product.price }} $</div>
+          </v-card-text>
+
+          <v-card-actions class="m-0 pt-0">
+            <v-spacer></v-spacer>
+            <v-btn elevation="0">
+              <v-icon>mdi-cart-plus</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-hover>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-  name: 'ProductCard'
-}
+  props: ["cardArray"],
+  name: "ProductCard",
+  data: () => ({}),
+};
 </script>
 
-<style>
-</style>
+<style></style>

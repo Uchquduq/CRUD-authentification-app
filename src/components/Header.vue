@@ -3,7 +3,7 @@
     <v-app-bar color="yellow" elevation="0">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>E-commerce</v-toolbar-title>
+      <v-toolbar-title text><router-link class="text--black" to="/">E-commerce</router-link></v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-card-title>

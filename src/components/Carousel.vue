@@ -1,6 +1,6 @@
 <template>
   <v-carousel
-    class="mt-4"
+    class=""
     cycle
     height="500"
     hide-delimiter-background
