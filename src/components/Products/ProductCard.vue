@@ -10,8 +10,8 @@
         >
           <v-img max-height="250" :src="product.img" contain></v-img>
 
-          <v-card-title
-            ><router-link class="router-link" to="/info">
+          <v-card-title @click="infoProd(product)"
+            ><router-link class="router-link"  to="/info">
               {{ product.title }}</router-link
             ></v-card-title
           >
@@ -35,7 +35,12 @@
 
           <v-card-actions class="m-0 pt-0">
             <v-spacer></v-spacer>
-            <v-btn elevation="0" @click="addtoCart(product)">
+            <router-link class="router-link" to="/Info"
+              ><v-btn elevation="0" @click="infoProd(product)"
+                >Info</v-btn
+              ></router-link
+            >
+            <v-btn class="ml-2" elevation="0" @click="addtoCart(product)">
               <v-icon>mdi-cart-plus</v-icon>
             </v-btn>
           </v-card-actions>
@@ -53,6 +58,9 @@ export default {
   methods: {
     addtoCart(product) {
       this.$store.commit("IN_CART", product);
+    },
+    infoProd(product) {
+      this.$store.commit("INFO_PRODUCT", product);
     },
   },
 };

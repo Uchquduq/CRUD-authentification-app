@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        infoPage: [],
+        infoProduct: null,
         cartItems: [],
         items: [{
                 id: 0,
@@ -153,11 +153,7 @@ export default new Vuex.Store({
                 }, 0)
             }
         },
-        infoLength(state) { // Info Component
-            if (state.infoPage.length > 0) {
-                return state.infoPage.splice(0, 1)
-            }
-        },
+
         cartTotal: state => { // Cart Component
             return state.cartItems.reduce((acc, cartItem) => {
                 return (cartItem.quantity * cartItem.price) + acc;
@@ -214,8 +210,8 @@ export default new Vuex.Store({
                 state.cartItems
             });
         },
-        'ADD_TO_INFO' (state, n) { // Info Component
-            return state.infoPage.push(n)
+        'INFO_PRODUCT' (state, n) { // Info Component
+            state.infoProduct = n
         }
     },
     actions: {

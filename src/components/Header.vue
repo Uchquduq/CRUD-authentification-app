@@ -9,7 +9,7 @@
 
       <v-toolbar-title text
         ><router-link style="text-decoration: none; color:black;" to="/"
-          >E-commerce</router-link
+          > Shop3</router-link
         ></v-toolbar-title
       >
 

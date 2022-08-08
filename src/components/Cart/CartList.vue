@@ -16,7 +16,7 @@
                 Cart Total : {{ cartTotal }}$ 
               </v-list-item-title>
             </v-list-item-content>
-            <v-btn> Checkout </v-btn>
+            <v-btn to="/checkout"> Checkout </v-btn>
           </v-list-item>
         </v-list>
       </template>

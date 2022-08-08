@@ -2,24 +2,23 @@
   <div>
     <v-app>
       <v-container grid-list-md text-xs-center>
-        <v-layout row >
+        <v-layout row>
           <v-flex xs5>
             <v-card elevation="0">
               <v-img
-                :src="defaultImg"
+                :src="info.img"
                 max-height="400"
                 contain
                 class="grey darken-4 product-img"
               ></v-img>
             </v-card>
             <v-layout row>
-              <v-flex v-for="(item, index) in items" :key="index" xs3>
+              <v-flex v-for="(item, index) in info.img" :key="index" xs3>
                 <v-card class="product-img">
                   <v-img
                     class="sub-img"
-                    v-bind:class="{ activeimg: items.isActive }"
-                    :src="item.images"
-                    @click="defaultImg = item.images"
+                    :src="item"
+                    @click="info.img = item"
                   ></v-img>
                 </v-card>
               </v-flex>
@@ -27,11 +26,11 @@
           </v-flex>
           <v-flex xs7 pl-5 class="d-flex text-xs-left">
             <div class="product-summary">
-              <h2 class="product-title">Basic contrast sneakers</h2>
+              <h2 class="product-title">{{ info.title }}</h2>
               <v-card-text class="p-0 py-3">
                 <v-row align="center" class="mx-0">
                   <v-rating
-                    :value="5"
+                    :value="info.rating"
                     color="amber"
                     dense
                     half-increments
@@ -47,9 +46,9 @@
               <div class="price mt-2">
                 <h3>
                   <span>$</span>
-                  160.00
+                  {{ info.price }}
                 </h3>
-                <del>$ 180</del>
+                <del>$ {{ info.price * 1.5 }}</del>
               </div>
               <div class="prodect-details">
                 <h3>Product Details</h3>
@@ -146,6 +145,7 @@
                         class="m-1"
                         :elevation="hover ? 5 : 0"
                         :class="{ 'on-hover': hover }"
+                        @click="addtoCart"
                       >
                         <v-icon>mdi-cart-plus</v-icon>ADD TO CART</v-btn
                       ></v-hover
@@ -238,9 +238,14 @@ export default {
       },
     ],
   }),
+  computed: {
+    info() {
+      return this.$store.state.infoProduct;
+    },
+  },
   methods: {
-    addtoCart(product) {
-     this.$store.commit('IN_CART', product)
+    addtoCart() {
+      this.$store.commit("IN_CART", this.info);
     },
     plus() {
       this.quantity++;
@@ -257,237 +262,6 @@ export default {
 </script>
 
 <style scoped>
-.body {
-  padding: 35px 0px;
-}
-* {
-  box-sizing: border-box;
-}
-.product-img {
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.product-title {
-  text-transform: uppercase;
-  margin-bottom: 15px;
-  font-size: 25px;
-  line-height: 1.2em;
-}
-.user-ratings {
-  overflow: hidden;
-  margin-bottom: 10px;
-  margin-top: 5px;
-  display: inline-block;
-}
-
-.star-rating {
-  display: inline-block;
-  font-size: 18px;
-  position: relative;
-  height: 18px;
-  line-height: 18px;
-  letter-spacing: 2px;
-  width: 130px;
-}
-
-.star-rating:before {
-  content: "\f005\f005\f005\f005\f123";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fc0;
-  box-sizing: border-box;
-}
-
-.star-rating span {
-  overflow: hidden;
-  float: left;
-  top: 0;
-  left: 0;
-  height: 18px;
-  position: absolute;
-  font-size: 0;
-}
-.user-ratings .total-review {
-  vertical-align: middle;
-  color: rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
-  float: right;
-  font-size: 14px;
-  text-decoration: none;
-}
-.total-review:hover {
-  text-decoration: underline;
-}
-
-.price {
-  display: block;
-  margin-bottom: 10px;
-}
-.price h3 {
-  display: inline-block;
-  font-size: 28px;
-  color: #e91e63;
-}
-.price del {
-  padding: 0px 20px;
-  font-size: 20px;
-  color: #9e9e9e;
-}
-.prodect-details {
-  padding-top: 15px;
-  padding-bottom: 20px;
-  font-family: "Lora", serif;
-  border-bottom: 1px dashed #ddd;
-}
-
-.colors {
-  margin: 0px;
-  padding: 0px;
-  display: inline-block;
-  margin-top: 20px;
-  list-style: none;
-}
-.colors p {
-  float: left;
-  margin-top: 10px;
-  color: #000;
-  font-weight: 700;
-  padding-right: 20px;
-}
-.color-box {
-  height: 35px;
-  width: 35px;
-  margin: 5px;
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.active-col {
-  outline: 1px dashed black;
-}
-
-.size {
-  margin: 0px;
-  padding: 0px;
-  display: inline-block;
-  margin-top: 20px;
-  list-style: none;
-}
-.size p {
-  float: left;
-  margin-top: 10px;
-  color: #000;
-  font-weight: 700;
-  padding-right: 38px;
-}
-
-.size-box {
-  padding: 12px;
-  margin: 0px 5px;
-  display: inline-block;
-  cursor: pointer;
-  color: #000;
-  font-weight: 400;
-}
-.active-siz {
-  background-color: #b2dfdb;
-}
-.buy-product {
-  margin-top: 15px;
-  padding: 15px 0px;
-  border-top: 1px dashed #ddd;
-}
-
-.product-qty {
-  display: inline-block;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.product-qty button.items-count {
-  background-color: #fff;
-  border: 1px #ddd solid;
-  border-radius: 2px;
-}
-
-.product-qty button.items-count {
-  font-size: 18px;
-  line-height: 12px;
-  height: 40px;
-  width: 40px;
-  color: #000;
-}
-
-.product-qty .qty {
-  height: 40px;
-  text-align: center;
-  width: 70px;
-  vertical-align: top;
-  color: #000;
-}
-
-.qty {
-  background-color: #ffffff;
-  border: 1px #ced4da solid;
-  border-radius: 2px;
-  color: #666;
-  font-size: 15px;
-  font-weight: bold;
-  margin: 0 -5px;
-}
-
-.sub-title {
-  color: #000;
-  font-weight: 700;
-  padding-right: 38px;
-}
-
-.cart-btn {
-  margin: 15px 0px;
-  border-bottom: 1px #e5e5e5 solid;
-}
-
-.cart-btn i {
-  padding: 0px 10px;
-}
-
-.socal-link {
-  margin: 0px;
-  padding: 0px;
-  margin-top: 20px;
-  list-style: none;
-  display: block;
-}
-.socal-link li {
-  list-style: none;
-  display: inline-block;
-  margin: 0px 8px;
-}
-
-.socal-link li a {
-  border: 1px #ddd solid;
-  color: #666;
-  font-size: 15px;
-  line-height: 36px;
-  padding: 8px 12px;
-}
-
-.socal-link li a:hover {
-  background: #ff5252;
-  color: #fff;
-}
-
-.activeimg {
-  border: 1px solid #000;
-}
-
-.overview {
-  margin-top: 30px;
-}
-
 /* Vuetify Helper classes */
 .basil {
   background-color: #fffbe6 !important;
