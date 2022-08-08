@@ -1,11 +1,11 @@
 <template>
-  <v-card elevation="0">
+  <v-card class="mt-8 mb-8" elevation="0">
     <v-row align="center" justify="space-around">
       <v-col cols="12" sm="7" lg="5">
         <v-card-title primary-title>
           Checkout Form
         </v-card-title>
-        <v-form ref="billing" class="mt-2 ml-4 mb-5">
+        <v-form ref="billing" class="mt-2 ml-4 mb-5 mr-4">
           <v-row>
             <v-col class="py-0">
               <v-text-field
@@ -141,7 +141,7 @@
         </v-form>
       </v-col>
       <v-col cols="12" sm="5">
-        <v-card max-width="400" class="ml-5 mb-5">
+        <v-card max-width="400" class="ml-5 mb-5 mr-4">
           <v-card-title>Order Summary</v-card-title>
           <v-container class="pa-5">
             <v-row justify="space-between">

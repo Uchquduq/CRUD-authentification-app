@@ -1,30 +1,14 @@
 <template>
-  <div>
+  <div class="mt-6">
     <v-app>
       <v-container grid-list-md text-xs-center>
         <v-layout row>
-          <v-flex xs5>
+          <v-flex sm12 md5 xs12 class="mb-5">
             <v-card elevation="0">
-              <v-img
-                :src="info.img"
-                max-height="400"
-                contain
-                class="grey darken-4 product-img"
-              ></v-img>
+              <v-img :src="info.img" max-height="400" contain class=""></v-img>
             </v-card>
-            <v-layout row>
-              <v-flex v-for="(item, index) in info.img" :key="index" xs3>
-                <v-card class="product-img">
-                  <v-img
-                    class="sub-img"
-                    :src="item"
-                    @click="info.img = item"
-                  ></v-img>
-                </v-card>
-              </v-flex>
-            </v-layout>
           </v-flex>
-          <v-flex xs7 pl-5 class="d-flex text-xs-left">
+          <v-flex xs12 sm12 md7 pl-5 class="d-flex text-xs-left">
             <div class="product-summary">
               <h2 class="product-title">{{ info.title }}</h2>
               <v-card-text class="p-0 py-3">
@@ -61,50 +45,97 @@
                 </p>
               </div>
               <div class="mt-2">
-                <p>Select Colour :</p>
+                
                 <v-container class="px-0" fluid>
                   <v-row>
                     <v-col>
-                      <v-radio-group v-model="row" row>
-                        <v-radio
-                          color="red"
-                          label="red"
+                       <span class="mb-1">Select Colour :</span>
+                      <div class="mt-1">
+                       
+                        <input
+                          type="radio"
+                          name="color"
+                          id="red"
+                          v-model="colorRadio"
                           value="red"
-                          row
-                        ></v-radio>
-                        <v-radio
-                          color="primary"
-                          label="primary"
-                          value="primary"
-                        ></v-radio
-                        ><v-radio
-                          color="success"
-                          label="green"
-                          value="success"
-                        ></v-radio>
-                      </v-radio-group>
+                        />
+                        <label for="red"><span class="red"></span></label>
+
+                        <input
+                          type="radio"
+                          name="color"
+                          v-model="colorRadio"
+                          id="green"
+                          value="green"
+                        />
+                        <label for="green"><span class="green"></span></label>
+
+                        <input
+                          type="radio"
+                          name="color"
+                          v-model="colorRadio"
+                          id="yellow"
+                          value="yellow"
+                        />
+                        <label for="yellow"><span class="yellow"></span></label>
+
+                        <input
+                          type="radio"
+                          name="color"
+                          v-model="colorRadio"
+                          id="olive"
+                          value="olivie"
+                        />
+                        <label for="olive"><span class="olive"></span></label>
+
+                        <input
+                          type="radio"
+                          name="color"
+                          v-model="colorRadio"
+                          id="orange"
+                          value="orange"
+                        />
+                        <label for="orange"><span class="orange"></span></label>
+                      </div>
                     </v-col>
                   </v-row>
                 </v-container>
               </div>
               <div>
-                <p class="sub-heading">Select Size :</p>
+                <span class="sub-heading">Select Size :</span>
                 <v-row>
                   <v-col>
-                    <v-radio-group v-model="row" row>
-                      <v-radio color="M" label="M" value="M" row></v-radio>
-                      <v-radio color="L" label="L" value="L"></v-radio
-                      ><v-radio color="XL" label="XL" value="XL"></v-radio>
-                    </v-radio-group>
+                    <div>
+                      <input
+                        class=""
+                        type="radio"
+                        name="size"
+                        id="32"
+                        v-model="size"
+                        value="32"
+                      />
+                      <label for="32" class="mr-10"
+                        ><span class="ml-1 32">32GB</span></label
+                      >
+
+                      <input
+                        type="radio"
+                        name="size"
+                        v-model="size"
+                        id="64"
+                        value="64"
+                      />
+                      <label for="64"><span class="32">64GB</span></label>
+                    </div>
                   </v-col>
                 </v-row>
               </div>
 
               <div class="buy-product">
+               
                 <div class="product-qty">
                   <table>
-                    <tr>
-                      <td><label class="sub-title">Quantity :</label></td>
+                    <tr><td> <span class="mr-2">Quantity: </span> </td>
                       <td>
                         <button
                           @click="minus"
@@ -137,6 +168,8 @@
                         class="m-1"
                         :elevation="hover ? 5 : 0"
                         :class="{ 'on-hover': hover }"
+                        
+                        @click="buy"
                       >
                         <v-icon>mdi-check</v-icon>BUY NOW</v-btn
                       ></v-hover
@@ -188,9 +221,11 @@
 export default {
   name: "ProductInfo",
   data: () => ({
-    quantity: 1,
-    tab: null,
     row: null,
+    quantity: 1,
+    size: null,
+    tab: null,
+    colorRadio: null,
     menus: ["Appetizers", "Entrees", "Deserts", "Cocktails"],
     text:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -244,6 +279,21 @@ export default {
     },
   },
   methods: {
+    buy() {
+      var data = {
+        title: this.info.title,
+        price: this.info.price,
+        color: this.info.color,
+        id: this.info.id,
+        img: this.info.img,
+        type: this.info.type,
+        rating: this.info.rating,
+        quantity: this.quantity
+      };
+      console.log('buy')
+      this.$store.commit("BUY", data);
+      this.$router.push({ name: "Checkout" })
+    },
     addtoCart() {
       this.$store.commit("IN_CART", this.info);
     },
@@ -252,7 +302,7 @@ export default {
       return this.quantity;
     },
     minus() {
-      if (this.quantity > 0) {
+      if (this.quantity > 1) {
         return this.quantity--;
       }
       return this.quantity;
@@ -268,5 +318,116 @@ export default {
 }
 .basil--text {
   color: #356859 !important;
+}
+
+/* Radio */
+
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"]:checked + label span {
+  transform: scale(1.25);
+}
+input[type="radio"]:checked + label .red {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .orange {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .yellow {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .olive {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .green {
+  border: 2px solid #505a0b;
+}
+
+label {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+label:hover span {
+  transform: scale(1.25);
+}
+label span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+label span.red {
+  background: #db2828;
+}
+label span.orange {
+  background: #f2711c;
+}
+label span.yellow {
+  background: #fbbd08;
+}
+label span.olive {
+  background: #b5cc18;
+}
+label span.green {
+  background: #21ba45;
+}
+
+/* Product qty btn */
+
+.product-qty {
+  display: inline-block;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.product-qty button.items-count {
+  background-color: #fff;
+  border: 1px #ddd solid;
+  border-radius: 2px;
+}
+
+.product-qty button.items-count {
+  font-size: 18px;
+  line-height: 12px;
+  height: 40px;
+  width: 40px;
+  color: #000;
+}
+
+.product-qty .qty {
+  height: 40px;
+  text-align: center;
+  width: 70px;
+  vertical-align: top;
+  color: #000;
+}
+
+.qty {
+  background-color: #ffffff;
+  border: 1px #ced4da solid;
+  border-radius: 2px;
+  color: #666;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.sub-title {
+  color: #000;
+  font-weight: 700;
+  padding-right: 38px;
+}
+
+.cart-btn {
+  margin: 15px 0px;
+  border-bottom: 1px #e5e5e5 solid;
+}
+
+.cart-btn i {
+  padding: 0px 10px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-5">
     <CartList/>
   </div>
 </template>

@@ -186,6 +186,16 @@ export default new Vuex.Store({
             });
             if (!cartProductExists) state.cartItems.push(newCartProduct);
         },
+        'BUY' (state, aProduct) {
+            let cartProductExists = false;
+            state.cartItems.map((cartProduct) => {
+                if (cartProduct.id === aProduct.id) {
+                    cartProduct.quantity = aProduct.quantity;
+                    cartProductExists = true;
+                }
+            })
+            if (!cartProductExists) state.cartItems.push(aProduct);
+        },
         'OUT_CART' (state, aProduct) {
             state.cartItems.map((cartProduct) => {
                 if (cartProduct.id === aProduct.id && cartProduct.quantity > 1) {
