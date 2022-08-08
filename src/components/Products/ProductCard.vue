@@ -7,11 +7,14 @@
           :class="{ 'on-hover': hover }"
           class="mx-auto"
           max-width="360"
-          to="/info"
         >
           <v-img max-height="250" :src="product.img" contain></v-img>
 
-          <v-card-title>{{ product.title }}</v-card-title>
+          <v-card-title
+            ><router-link class="router-link" to="/info">
+              {{ product.title }}</router-link
+            ></v-card-title
+          >
 
           <v-card-text>
             <v-row align="center" class="mx-0">
@@ -32,7 +35,7 @@
 
           <v-card-actions class="m-0 pt-0">
             <v-spacer></v-spacer>
-            <v-btn elevation="0">
+            <v-btn elevation="0" @click="addtoCart(product)">
               <v-icon>mdi-cart-plus</v-icon>
             </v-btn>
           </v-card-actions>
@@ -47,6 +50,11 @@ export default {
   props: ["cardArray"],
   name: "ProductCard",
   data: () => ({}),
+  methods: {
+    addtoCart(product) {
+      this.$store.commit("IN_CART", product);
+    },
+  },
 };
 </script>
 

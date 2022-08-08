@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="position: relative; z-index:9999;">
     <Header />
-    <v-main class="">
+    <v-main class="mt-16">
       <router-view></router-view>
     </v-main>
     <Footer></Footer>
@@ -18,4 +18,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.router-link {
+  text-decoration: none;
+  color: black;
+}
+.router-link:hover {
+  text-decoration: none;
+  color: rgb(12, 105, 218);
+}
+</style>

@@ -1,10 +1,8 @@
 <template>
-  <div>
+  <div >
     <Carousel />
-    <v-row class="m-1">
       <Filters />
       <Grid />
-    </v-row>
   </div>
 </template>
 

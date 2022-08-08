@@ -6,6 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        infoPage: [],
+        cartItems: [],
         items: [{
                 id: 0,
                 img: require('@/assets/1.jpg'),
@@ -52,7 +54,7 @@ export default new Vuex.Store({
                 title: 'Fotal-2',
                 price: 44,
                 color: 'white',
-                type: 'chair',
+                type: 'sofa',
                 rating: 3.0
             }, {
                 id: 6,
@@ -77,7 +79,7 @@ export default new Vuex.Store({
                 title: 'foto-44',
                 price: 390,
                 color: 'white',
-                type: 'table',
+                type: 'lamp',
                 rating: 4.5
             },
             {
@@ -95,7 +97,7 @@ export default new Vuex.Store({
                 title: 'foto-23',
                 price: 44,
                 color: 'white',
-                type: 'chair',
+                type: 'lamp',
                 rating: 4.0
             },
             {
@@ -104,7 +106,7 @@ export default new Vuex.Store({
                 title: 'foto-4234',
                 price: 156,
                 color: 'red',
-                type: 'lamp',
+                type: 'sofa',
                 rating: 4.0
             },
             {
@@ -113,7 +115,7 @@ export default new Vuex.Store({
                 title: 'foto-4234',
                 price: 756,
                 color: 'blue',
-                type: 'lamp',
+                type: 'sofa',
                 rating: 4.0
             },
             {
@@ -134,10 +136,87 @@ export default new Vuex.Store({
                 type: 'table',
                 rating: 4.0
             }
-        ]
+        ],
+        searched: null
+    },
+    getters: {
+        searched(state) {
+            return state.searched
+        },
+        itemsNumber(state) { // Cart Component
+            return state.cartItems.reduce((acc, item) => (acc += item.quantity), 0)
+        },
+        totalPrice(state) { // Cart Component
+            if (state.cartItems.length != 0) {
+                return state.cartItems.reduce((a, b) => {
+                    return (b.price == null) ? a : a + b.price
+                }, 0)
+            }
+        },
+        infoLength(state) { // Info Component
+            if (state.infoPage.length > 0) {
+                return state.infoPage.splice(0, 1)
+            }
+        },
+        cartTotal: state => { // Cart Component
+            return state.cartItems.reduce((acc, cartItem) => {
+                return (cartItem.quantity * cartItem.price) + acc;
+            }, 0).toFixed(2);
+        },
     },
     mutations: {
-
+        'SEARCH_PRODUCT' (state, name) {
+            return this.state.searched = state.items.filter(
+                (e) => e.title.match(name) || e.type.match(name)
+            )
+        },
+        'IN_CART' (state, aProduct) {
+            const newCartProduct = {
+                id: aProduct.id,
+                title: aProduct.title,
+                price: aProduct.price,
+                img: aProduct.img,
+                color: aProduct.color,
+                type: aProduct.type,
+                rating: aProduct.rating,
+                quantity: 1
+            };
+            let cartProductExists = false;
+            state.cartItems.map((cartProduct) => {
+                if (cartProduct.id === newCartProduct.id) {
+                    cartProduct.quantity++;
+                    cartProductExists = true;
+                }
+            });
+            if (!cartProductExists) state.cartItems.push(newCartProduct);
+        },
+        'OUT_CART' (state, aProduct) {
+            state.cartItems.map((cartProduct) => {
+                if (cartProduct.id === aProduct.id && cartProduct.quantity > 1) {
+                    cartProduct.quantity--;
+                }
+                cartProduct.quantity
+            })
+        },
+        'PLUS_CART' (state, id) {
+            state.cartItems.map((cartProduct) => {
+                if (cartProduct.id === id) {
+                    cartProduct.quantity++;
+                }
+                cartProduct.quantity
+            });
+        },
+        'DELETE_CART' (state, aProduct) { // Cart Component
+            state.cartItems.map((cartProduct) => {
+                if (cartProduct.id === aProduct.id) {
+                    state.cartItems.pop(aProduct);
+                }
+                state.cartItems
+            });
+        },
+        'ADD_TO_INFO' (state, n) { // Info Component
+            return state.infoPage.push(n)
+        }
     },
     actions: {
 

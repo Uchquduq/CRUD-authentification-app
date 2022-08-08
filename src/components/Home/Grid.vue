@@ -1,49 +1,151 @@
 <template>
-  <v-col>
-    <v-sheet color="yellow" class="p-3" min-height="70vh" rounded="lg">
-      <!--  -->
-      <v-container>
-        <v-row align="center" class=""
-          ><v-hover v-slot="{ hover }" open-delay="50">
-            <v-btn
-              @click="sortPrice"
-              :elevation="hover ? 5 : 1"
-              class="white ml-1 mr-1 mb-1"
-              >Sort Price</v-btn
-            ></v-hover
-          ><v-hover v-slot="{ hover }" open-delay="50">
-            <v-btn
-              @click="sortTrend"
-              :elevation="hover ? 5 : 1"
-              class="white ml-1 mr-1 mb-1"
-              >Sort Trend</v-btn
-            ></v-hover
-          ><v-hover v-slot="{ hover }" open-delay="50">
-            <v-btn
-              @click="sortDate"
-              :elevation="hover ? 5 : 1"
-              class="white ml-1 mr-1 mb-1"
-              >Sort Date</v-btn
-            ></v-hover
-          >
-        </v-row>
-        <ProductCard :cardArray="slicedPage"/>
-        <v-row class="d-flex justify-space-around mb-1 mt-1 ml-1 pa-1">
-          <v-col class="px-4"> </v-col>
-        </v-row>
+  <v-row class="m-1">
+    <v-col md="3" sm="3">
+      <v-sheet color="light-blue lighten-4" class="mb-4" rounded="lg">
+        <v-list color="transparent">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title> Filters </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-sheet>
+      <v-sheet color="light-blue lighten-4" rounded="lg">
+        <v-list color="transparent">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title> Categories </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="sortI('chair')">
+                Notebook
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="sortI('chair')">
+                Smartphones
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="sortI('chair')">
+                Smart Watch
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="sortI('chair')">
+                Earphones
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-sheet>
+      <v-sheet color="light-blue lighten-4" class="mt-4" rounded="lg">
+        <v-list color="transparent">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title> Colors </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-        <div class="text-center mt-3">
-          <v-pagination v-model="page" :length="totalPage"></v-pagination>
-        </div>
-      </v-container>
-    </v-sheet>
-  </v-col>
+          <v-divider class="my-2"></v-divider>
+
+          <v-row class="d-flex justify-start mb-1 mt-1 ml-1 pa-1">
+            <div class="">
+              <span
+                class="circle"
+                style="background-color:black"
+                @click="sortI('Black')"
+              />
+              <span
+                class="circle"
+                style="background-color:blue"
+                @click="sortI('blue')"
+              />
+              <span
+                class="circle"
+                style="background-color:white"
+                @click="sortI('white')"
+              />
+              <span
+                class="circle"
+                style="background-color:gray"
+                @click="sortI('grey')"
+              />
+            </div>
+          </v-row>
+        </v-list>
+      </v-sheet>
+      <v-sheet color="light-blue lighten-4" class="mt-4" rounded="lg">
+        <v-list color="transparent">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title> Slider </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item-content class="ml-4">
+            <v-list-item-title @click="reSet"><v-icon>mdi-restart</v-icon> Reset </v-list-item-title>
+          </v-list-item-content>
+        </v-list>
+      </v-sheet>
+    </v-col>
+    <v-col>
+      
+      <v-sheet color="light-blue lighten-4" class="p-3" min-height="70vh" rounded="lg">
+        <!--  -->
+        <v-container>
+          <v-row align="center" class=""
+            ><v-hover v-slot="{ hover }" open-delay="50">
+              <v-btn
+                @click="sortPrice"
+                :elevation="hover ? 5 : 1"
+                class="white ml-1 mr-1 mb-1"
+                >Sort Price</v-btn
+              ></v-hover
+            ><v-hover v-slot="{ hover }" open-delay="50">
+              <v-btn
+                @click="sortTrend"
+                :elevation="hover ? 5 : 1"
+                class="white ml-1 mr-1 mb-1"
+                >Sort Trend</v-btn
+              ></v-hover
+            ><v-hover v-slot="{ hover }" open-delay="50">
+              <v-btn
+                @click="sortDate"
+                :elevation="hover ? 5 : 1"
+                class="white ml-1 mr-1 mb-1"
+                >Sort Date</v-btn
+              ></v-hover
+            >
+          </v-row>
+          <ProductCard :cardArray="slicedPage" />
+          <v-row class="d-flex justify-space-around mb-1 mt-1 ml-1 pa-1">
+            <v-col class="px-4"> </v-col>
+          </v-row>
+
+          <div class="text-center mt-3">
+            <v-pagination v-model="page" :length="totalPage"></v-pagination>
+          </div>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import ProductCard from "@/components/Products/ProductCard.vue";
 export default {
   name: "Grid",
+  components: { ProductCard },
   data: () => ({
     page: 1,
     loading: false,
@@ -51,7 +153,6 @@ export default {
     products: null,
     showCards: 6,
     currentItems: 0,
-    items: ["PRICE", "DATE", "TRENDING"],
     sortButton: "",
   }),
   watch: {
@@ -68,13 +169,21 @@ export default {
       return this.products.slice(this.currentItems, this.showCards);
     },
     totalPage() {
-      return Math.ceil(this.it.length / 6);
+      return Math.ceil(this.products.length / 6);
     },
   },
   created() {
     this.products = this.it;
   },
   methods: {
+    reSet() {
+      return (this.products = this.it);
+    },
+    sortI(name) {
+      this.products = this.it.filter(
+        (e) => e.type.match(name) || e.color.match(name)
+      );
+    },
     sortPrice() {
       this.products.sort((a, b) => a.price - b.price);
       return (this.sortButton = "PRICE");
@@ -105,11 +214,19 @@ export default {
       console.log(this.currentItems, this.showCards);
     },
   },
-  components: { ProductCard },
 };
 </script>
 
 <style scoped>
+.circle {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 0.7px solid #2c3539;
+  display: inline-block;
+  margin-left: 6px;
+  cursor: pointer;
+}
 .v-card.on-hover.theme--dark {
   background-color: rgba(255, 255, 255, 0.8);
 }

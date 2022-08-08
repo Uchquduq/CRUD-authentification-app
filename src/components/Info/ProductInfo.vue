@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="body">
-    <v-app id="inspire">
+  <div>
+    <v-app>
       <v-container grid-list-md text-xs-center>
-        <v-layout row wrap>
+        <v-layout row >
           <v-flex xs5>
             <v-card elevation="0">
               <v-img
@@ -12,7 +12,7 @@
                 class="grey darken-4 product-img"
               ></v-img>
             </v-card>
-            <v-layout row wrap>
+            <v-layout row>
               <v-flex v-for="(item, index) in items" :key="index" xs3>
                 <v-card class="product-img">
                   <v-img
@@ -62,32 +62,30 @@
                 </p>
               </div>
               <div class="mt-2">
-                <p>Select Colour :</p><v-container
-    class="px-0"
-    fluid
-  >
-                <v-row>
-                  <v-col>
-                    <v-radio-group v-model="row" row>
-                      <v-radio
-                        color="red"
-                        label="red"
-                        value="red"
-                        row
-                      ></v-radio>
-                      <v-radio
-                        color="primary"
-                        label="primary"
-                        value="primary"
-                      ></v-radio
-                      ><v-radio
-                        color="success"
-                        label="green"
-                        value="success"
-                      ></v-radio>
-                    </v-radio-group>
-                  </v-col>
-                </v-row>
+                <p>Select Colour :</p>
+                <v-container class="px-0" fluid>
+                  <v-row>
+                    <v-col>
+                      <v-radio-group v-model="row" row>
+                        <v-radio
+                          color="red"
+                          label="red"
+                          value="red"
+                          row
+                        ></v-radio>
+                        <v-radio
+                          color="primary"
+                          label="primary"
+                          value="primary"
+                        ></v-radio
+                        ><v-radio
+                          color="success"
+                          label="green"
+                          value="success"
+                        ></v-radio>
+                      </v-radio-group>
+                    </v-col>
+                  </v-row>
                 </v-container>
               </div>
               <div>
@@ -241,6 +239,9 @@ export default {
     ],
   }),
   methods: {
+    addtoCart(product) {
+     this.$store.commit('IN_CART', product)
+    },
     plus() {
       this.quantity++;
       return this.quantity;
