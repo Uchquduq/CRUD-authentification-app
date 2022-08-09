@@ -78,7 +78,7 @@
         <v-list-item-group
           v-if="bagItemscount > 0"
           v-model="group"
-          active-class="black--text text--accent-4"
+          
         >
           <v-list-item v-for="(value, key) in cartItem" :key="key">
             <v-img
@@ -93,12 +93,14 @@
               {{ value.quantity }}</v-list-item-title
             >
           </v-list-item>
-          <v-list-item><router-link class="router-link" to="/cart"
-              >
-            <v-list-item-title
-              >Cart Total : {{ cartTotal }}$</v-list-item-title
-            ></router-link>
-          </v-list-item>
+         
+            <v-btn class="aling-center my-2"
+              text to="/cart" white ><v-icon class="mr-2">mdi-cart</v-icon>Cart Info</v-btn
+            >
+            <v-btn class="aling-center my-2"
+              text to="/checkout"><v-icon class="mr-2">mdi-cash</v-icon> Checkout {{cartTotal}}$</v-btn
+            >
+          
         </v-list-item-group>
         <v-list-item-group
           v-else

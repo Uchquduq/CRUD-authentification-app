@@ -236,13 +236,7 @@ export default {
     submitOrder() {
       if (!this.$refs.billing.validate()) return; // eslint-disable-line no-useless-return
 
-      const lineItems = {};
-
-      for (const i of this.cart.line_items) {
-        lineItems[i.id] = {
-          quantity: i.quantity,
-        };
-      }
+      
       // Capture checkout data
 
       // make request
