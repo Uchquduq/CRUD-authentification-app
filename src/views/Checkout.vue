@@ -185,7 +185,7 @@
               <v-card-subtitle>$ {{ total }}</v-card-subtitle>
             </v-row>
             <v-row justify="center">
-              <v-btn elevation="0" class="my-2" to="/cart">Edit Cart</v-btn>
+              <v-btn elevation="0" class="my-2 text-decoration-none" to="/cart">Edit Cart</v-btn>
             </v-row>
           </v-container>
         </v-card>

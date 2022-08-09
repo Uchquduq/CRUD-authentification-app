@@ -8,10 +8,16 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title text
-        ><router-link style="text-decoration: none; color:black;" to="/"
-          > Shop3</router-link
-        ></v-toolbar-title
-      >
+        ><router-link
+          style="text-decoration: none; font-size: 14px; font-weight: 500; color:black;"
+          to="/"
+        >
+          <v-img
+            height="45px"
+            width="90px"
+            src="@/assets/logo/kichiklogo.png"
+          ></v-img></router-link
+      ></v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -20,22 +26,38 @@
         color="red"
         overlap
         bordered
+        class="mr-1"
         :content="bagItemscount"
       >
         <v-btn @click="cartOn = true" icon small elevation="0">
           <v-icon>mdi-cart </v-icon>
         </v-btn>
       </v-badge>
-      <v-btn @click="cartOn = true" v-else icon small>
+      <v-btn @click="cartOn = true" class="mr-1" v-else icon small>
         <v-icon>mdi-cart </v-icon>
       </v-btn>
-      <v-btn text class="ml-1">
-        Sign in
-      </v-btn>
-      <v-btn text class="ml-1 p-0">
-        Login
-      </v-btn>
-      <v-avatar class="mr-2 ml-2" color="grey darken-1" size="32"></v-avatar>
+      <template v-if="isLoggedIn">
+        <div class="text-center">
+         
+            <v-btn text elevation="0">
+                {{ currentUser.username
+                }}<v-avatar class="ml-1" color="grey darken-1" size="32"
+                  ><img
+                    src="@/assets/logo/user.png"
+                    alt="John"
+                /></v-avatar>
+                </v-btn>
+            
+        </div>
+      </template>
+
+      <template v-if="!isLoggedIn">
+        <v-btn small text class="ml-1 text-decoration-none" to="/login">
+          Login </v-btn
+        ><v-btn small text class=" text-decoration-none" to="/register">
+          Register
+        </v-btn>
+      </template>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -50,18 +72,24 @@
           v-model="group"
           active-class="black--text text--accent-4"
         >
-          <v-list-item>
+          <v-list-item class="text-decoration-none" to="/home">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
+          <v-list-item class="text-decoration-none" to="/login">
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+          <v-list-item class="text-decoration-none" to="/register">
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Register</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -74,11 +102,10 @@
       right
       temporary
     >
-      <v-list nav dense>
+      <v-list nav dense v-if="bagItemscount > 0">
         <v-list-item-group
           v-if="bagItemscount > 0"
-          v-model="group"
-          
+          active-class="black--text text--accent-4"
         >
           <v-list-item v-for="(value, key) in cartItem" :key="key">
             <v-img
@@ -93,13 +120,19 @@
               {{ value.quantity }}</v-list-item-title
             >
           </v-list-item>
-         
-            <v-btn class="aling-center my-2"
-              text to="/cart" white ><v-icon class="mr-2">mdi-cart</v-icon>Cart Info</v-btn
-            >
-            <v-btn class="aling-center my-2"
-              text to="/checkout"><v-icon class="mr-2">mdi-cash</v-icon> Checkout {{cartTotal}}$</v-btn
-            >
+          <v-list-item to="/cart" class="text-decoration-none" >
+            <v-list-item-icon>
+              <v-icon>mdi-cart</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>CART INFO</v-list-item-title>
+          </v-list-item>
+         <v-list-item to="/checkout" class="text-decoration-none" >
+            <v-list-item-icon>
+              <v-icon>mdi-cash</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>CHECKOUT
+            {{ cartTotal }}$</v-list-item-title>
+          </v-list-item>
           
         </v-list-item-group>
         <v-list-item-group
@@ -109,9 +142,7 @@
         >
           <v-list-item>
             <router-link class="router-link" to="/cart"
-              ><v-list-item-title
-                >Cart is Empty</v-list-item-title
-              ></router-link
+              ><v-list-item-title>Cart is Empty</v-list-item-title></router-link
             >
           </v-list-item>
         </v-list-item-group>
@@ -122,6 +153,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import {
+  getterTypes,
+  actionTypes as authActionTypes,
+} from "@/store/modules/auth";
+
 export default {
   name: "Header",
   data: () => ({
@@ -131,7 +167,12 @@ export default {
     group: null,
   }),
   computed: {
-    ...mapGetters(["cartTotal"]),
+    ...mapGetters({
+      currentUser: getterTypes.currentUser,
+      isLoggedIn: getterTypes.isLoggedIn,
+      isAnonymous: getterTypes.isAnonymous,
+      cartTotal: "cartTotal",
+    }),
     bagItemscount() {
       return this.$store.getters.itemsNumber;
     },
@@ -139,8 +180,14 @@ export default {
       return this.$store.state.cartItems;
     },
   },
+  methods: {
+    logout() {
+      this.$store.dispatch(authActionTypes.logout).then(() => {
+        this.$router.push({ name: "Home" });
+      });
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

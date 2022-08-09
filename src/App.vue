@@ -12,9 +12,14 @@
 <script>
 import Footer from "@/components/Footer";
 import Header from "@/components/Header.vue";
+import { actionTypes } from "./store/modules/auth";
 export default {
   components: { Footer, Header },
   data: () => ({}),
+  mounted() {
+    console.log("Hello app");
+    this.$store.dispatch(actionTypes.getCurrentUser);
+  },
 };
 </script>
 
