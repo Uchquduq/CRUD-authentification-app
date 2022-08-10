@@ -151,7 +151,7 @@ export default {
     loading: false,
     selection: 1,
     products: null,
-    showCards: 6,
+    showCards: 9,
     currentItems: 0,
     sortButton: "",
   }),
@@ -169,7 +169,7 @@ export default {
       return this.products.slice(this.currentItems, this.showCards);
     },
     totalPage() {
-      return Math.ceil(this.products.length / 6);
+      return Math.ceil(this.products.length / 9);
     },
   },
   created() {
@@ -198,16 +198,16 @@ export default {
     },
     incCardNumber() {
       if (this.page <= 1) {
-        this.showCards = 6;
+        this.showCards = 9;
         this.currentItems = 0;
         console.log(this.currentItems, this.showCards);
       } else if (this.page > 1) {
-        this.currentItems = this.page * 6 - 6;
-        this.showCards = this.currentItems + 6;
+        this.currentItems = this.page * 9 - 9;
+        this.showCards = this.currentItems + 9;
         console.log(this.currentItems, this.showCards);
       } else if (this.page >= this.totalPage) {
         this.page = 0;
-        this.showCards = 6;
+        this.showCards = 9;
         this.currentItems = 0;
         console.log(this.currentItems, this.showCards);
       }

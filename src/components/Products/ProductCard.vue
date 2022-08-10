@@ -5,10 +5,11 @@
         <v-card
           :elevation="hover ? 10 : 2"
           :class="{ 'on-hover': hover }"
-          class="mx-auto"
+          class="mx-auto pa-1"
+          
           max-width="360"
         >
-          <v-img max-height="250" :src="product.img" contain></v-img>
+          <v-img height="250"  :src="product.img" contain></v-img>
 
           <v-card-title @click="infoProd(product)"
             ><router-link class="router-link"  to="/info">

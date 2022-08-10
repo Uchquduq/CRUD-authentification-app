@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet color="light-blue lighten-4" class="mt-4 mr-2 ml-2 mb-6" elevation="5" rounded="lg">
+    <v-sheet color="" class="mt-4 mr-2 ml-2 mb-6" elevation="5" rounded="lg">
       <template v-if="cartItemsCount > 0">
         <v-list color="transparent">
           <v-list-item>
