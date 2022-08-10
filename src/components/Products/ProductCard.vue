@@ -11,10 +11,10 @@
         >
           <v-img height="200"  :src="product.img" contain></v-img>
 
-          <v-card-title @click="infoProd(product)"
-            ><router-link class="router-link"  to="/info">
+          <p class="ml-4 mt-4 " @click="infoProd(product)"
+            ><router-link class="router-link m-0 p-0"  to="/info">
               {{ product.title }}</router-link
-            ></v-card-title
+            ></p
           >
 
           <v-card-text>
