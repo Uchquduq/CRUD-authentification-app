@@ -2,7 +2,7 @@
   <div>
     <v-app-bar
       style="position: fixed; top: 0; z-index: 999; right: 0; left: 0;"
-      color="light-blue lighten-4"
+      color="blue lighten-3"
       elevation="5"
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
@@ -62,7 +62,7 @@
 
     <v-navigation-drawer
       style="position: fixed; bottom:0;left: 0; z-index: 999;"
-      color="light-blue lighten-4"
+      color="blue lighten-3"
       v-model="drawer"
       absolute
       temporary
@@ -96,7 +96,7 @@
     </v-navigation-drawer>
     <v-navigation-drawer
       style="position: fixed; bottom:0; right: 0; z-index: 999;"
-      color="light-blue lighten-4"
+      color="blue lighten-3"
       v-model="cartOn"
       absolute
       right

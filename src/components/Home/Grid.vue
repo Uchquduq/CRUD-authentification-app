@@ -1,7 +1,7 @@
 <template>
   <v-row class="m-1">
     <v-col md="3" sm="3">
-      <v-sheet color="light-blue lighten-4" class="mb-4" rounded="lg">
+      <v-sheet color="blue lighten-3" class="mb-4" rounded="lg">
         <v-list color="transparent">
           <v-list-item>
             <v-list-item-content>
@@ -10,7 +10,7 @@
           </v-list-item>
         </v-list>
       </v-sheet>
-      <v-sheet color="light-blue lighten-4" rounded="lg">
+      <v-sheet color="blue lighten-3" rounded="lg">
         <v-list color="transparent">
           <v-list-item>
             <v-list-item-content>
@@ -20,35 +20,41 @@
           <v-divider></v-divider>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title @click="sortI('chair')">
-                Notebook
+              <v-list-item-title class="text-start btn" @click="sortI('notebook')">
+                <v-icon>mdi-laptop</v-icon> Notebook
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title @click="sortI('chair')">
-                Smartphones
+              <v-list-item-title class="text-start btn" @click="sortI('smartphone')">
+                <v-icon>mdi-cellphone</v-icon> Smartphones
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title @click="sortI('chair')">
-                Smart Watch
+              <v-list-item-title class="text-start btn" @click="sortI('smartwatch')">
+                <v-icon>mdi-watch</v-icon> Smart Watch
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title @click="sortI('chair')">
-                Earphones
+              <v-list-item-title class="text-start btn" @click="sortI('chair')">
+                <v-icon>mdi-table</v-icon> Chairs
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-start btn" @click="sortI('sofa')"><v-icon>mdi-sofa</v-icon> Sofa
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-sheet>
-      <v-sheet color="light-blue lighten-4" class="mt-4" rounded="lg">
+      <v-sheet color="blue lighten-3" class="mt-4" rounded="lg">
         <v-list color="transparent">
           <v-list-item>
             <v-list-item-content>
@@ -63,7 +69,7 @@
               <span
                 class="circle"
                 style="background-color:black"
-                @click="sortI('Black')"
+                @click="sortI('black')"
               />
               <span
                 class="circle"
@@ -84,23 +90,19 @@
           </v-row>
         </v-list>
       </v-sheet>
-      <v-sheet color="light-blue lighten-4" class="mt-4" rounded="lg">
+      <v-sheet color="blue lighten-3" class="mt-4" rounded="lg">
         <v-list color="transparent">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title> Slider </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+         
 
           <v-list-item-content class="ml-4">
-            <v-list-item-title @click="reSet"><v-icon>mdi-restart</v-icon> Reset </v-list-item-title>
+            <a href="#grid"><v-list-item-title class="text-start btn" @click="reSet"><v-icon>mdi-restart</v-icon> Reset </v-list-item-title></a>
           </v-list-item-content>
         </v-list>
       </v-sheet>
     </v-col>
-    <v-col>
+    <v-col id="grid">
       
-      <v-sheet color="light-blue lighten-4" class="p-3" min-height="70vh" rounded="lg">
+      <v-sheet color="blue lighten-3" class="p-3" min-height="70vh" rounded="lg">
         <!--  -->
         <v-container>
           <v-row align="center" class=""
@@ -183,6 +185,7 @@ export default {
       this.products = this.it.filter(
         (e) => e.type.match(name) || e.color.match(name)
       );
+      this.page = 1;
     },
     sortPrice() {
       this.products.sort((a, b) => a.price - b.price);

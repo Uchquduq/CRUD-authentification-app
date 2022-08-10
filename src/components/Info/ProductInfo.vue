@@ -101,7 +101,7 @@
                   </v-row>
                 </v-container>
               </div>
-              <div>
+              <div v-if="info.type == 'smartphone' || info.type == 'smartwatch'">
                 <span class="sub-heading">Select Size :</span>
                 <v-row>
                   <v-col>
@@ -361,19 +361,19 @@ label span {
   transition: transform 0.2s ease-in-out;
 }
 label span.red {
-  background: #db2828;
+  background: #ee4646;
 }
 label span.orange {
-  background: #f2711c;
+  background: #f9f4f0;
 }
 label span.yellow {
-  background: #fbbd08;
+  background: #55bee0;
 }
 label span.olive {
-  background: #b5cc18;
+  background: #969696;
 }
 label span.green {
-  background: #21ba45;
+  background: #000000;
 }
 
 /* Product qty btn */
