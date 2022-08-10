@@ -21,34 +21,34 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="text-start btn" @click="sortI('notebook')">
-                <v-icon>mdi-laptop</v-icon> Notebook
+               <a href="#grid" class="text-decoration-none black--text"> <v-icon>mdi-laptop</v-icon> Notebook</a>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="text-start btn" @click="sortI('smartphone')">
-                <v-icon>mdi-cellphone</v-icon> Smartphones
+                <a href="#grid" class="text-decoration-none black--text"><v-icon>mdi-cellphone</v-icon> Smartphones</a>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="text-start btn" @click="sortI('smartwatch')">
-                <v-icon>mdi-watch</v-icon> Smart Watch
+                <a href="#grid" class="text-decoration-none black--text"><v-icon>mdi-watch</v-icon> Smart Watch</a>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="text-start btn" @click="sortI('chair')">
-                <v-icon>mdi-table</v-icon> Chairs
+                <a href="#grid" class="text-decoration-none black--text"><v-icon>mdi-table</v-icon> Chairs</a>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="text-start btn" @click="sortI('sofa')"><v-icon>mdi-sofa</v-icon> Sofa
+              <v-list-item-title class="text-start btn" @click="sortI('sofa')"><a href="#grid" class="text-decoration-none black--text"><v-icon>mdi-sofa</v-icon> Sofa</a>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -135,7 +135,7 @@
           </v-row>
 
           <div class="text-center mt-3">
-            <v-pagination v-model="page" :length="totalPage"></v-pagination>
+            <a href="#grid" class="router-link text-decoration-none"> <v-pagination v-model="page" :length="totalPage"></v-pagination></a>
           </div>
         </v-container>
       </v-sheet>

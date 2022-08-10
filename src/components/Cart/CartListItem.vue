@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list v-for="(value, key) in cartItem" :key="key" color="transparent">
+    <v-list v-for="(value, key) in cartItem" :key="key" class="" color="transparent">
       <v-list-item>
         <v-img
           height="100px"
@@ -10,12 +10,12 @@
         ></v-img>
 
         <v-list-item-title class="ml-10"
-          >{{ value.title }} | {{ value.price }}$ x
-          {{ value.quantity }} </v-list-item-title
+          >{{ value.title }} | {{ value.price }}$ 
+          </v-list-item-title
         ><v-spacer></v-spacer>
         <v-btn icon @click="pop(value)"><v-icon>mdi-delete</v-icon></v-btn
         ><v-btn icon @click="minus(value)"><v-icon>mdi-minus</v-icon></v-btn
-        ><v-btn icon @click="plus(value.id)"><v-icon>mdi-plus</v-icon></v-btn>
+        >{{ value.quantity }} <v-btn icon @click="plus(value.id)"><v-icon>mdi-plus</v-icon></v-btn>
       </v-list-item>
       <v-divider></v-divider>
     </v-list>

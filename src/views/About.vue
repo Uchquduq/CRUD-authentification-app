@@ -38,16 +38,7 @@ export default {
       { text: "Type", value: "type" },
       { text: "Rating", value: "rating" },
     ],
-    desserts: [
-      {
-        name: "Frozen Yogurt",
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: "1%",
-      },
-    ],
+    desserts: [],
   }),
   mounted() {
     this.desserts = this.$store.state.items;

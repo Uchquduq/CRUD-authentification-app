@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-sheet color="" class="mt-4 mr-2 ml-2 mb-6" elevation="5" rounded="lg">
+  <div >
+    <v-sheet color="" class="mt-8 mr-4 ml-4 mb-6" elevation="5" rounded="lg">
       <template v-if="cartItemsCount > 0">
         <v-list color="transparent">
           <v-list-item>
@@ -40,11 +40,13 @@ import CartListItem from "@/components/Cart/CartListItem";
 export default {
   name: "CartList",
   components: { CartListItem },
-  data: () => ({}),
-  computed: {
-    items() {
-      return this.$store.state.cartItems;
-    },
+  data: () => ({
+    items: []
+  }),
+  created() {
+    this.items = this.$store.state.cartItems;
+  },
+  computed: { 
     cartItemsCount() {
       return this.$store.state.cartItems.length || "";
     },

@@ -38,16 +38,25 @@
       </v-btn>
       <template v-if="isLoggedIn">
         <div class="text-center">
-         
-            <v-btn text elevation="0">
-                {{ currentUser.username
-                }}<v-avatar class="ml-1" color="grey darken-1" size="32"
-                  ><img
-                    src="@/assets/logo/user.png"
-                    alt="John"
-                /></v-avatar>
-                </v-btn>
-            
+          <v-btn
+            @click="ok = !ok"
+            style="position:relative;"
+            text
+            elevation="0"
+          >
+            {{ currentUser.username
+            }}<v-avatar class="ml-1" color="grey darken-1" size="32"
+              ><img src="@/assets/logo/user.png" alt="John"
+            /></v-avatar>
+            <v-btn
+              v-if="ok"
+              color="white"
+              style="position: absolute; margin-top: 80px; background-color: red;"
+              text
+              @click="logout"
+              >LOG OUT</v-btn
+            >
+          </v-btn>
         </div>
       </template>
 
@@ -120,20 +129,18 @@
               {{ value.quantity }}</v-list-item-title
             >
           </v-list-item>
-          <v-list-item to="/cart" class="text-decoration-none" >
+          <v-list-item to="/cart" class="text-decoration-none">
             <v-list-item-icon>
               <v-icon>mdi-cart</v-icon>
             </v-list-item-icon>
             <v-list-item-title>CART INFO</v-list-item-title>
           </v-list-item>
-         <v-list-item to="/checkout" class="text-decoration-none" >
+          <v-list-item to="/checkout" class="text-decoration-none">
             <v-list-item-icon>
               <v-icon>mdi-cash</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>CHECKOUT
-            {{ cartTotal }}$</v-list-item-title>
+            <v-list-item-title>CHECKOUT {{ cartTotal }}$</v-list-item-title>
           </v-list-item>
-          
         </v-list-item-group>
         <v-list-item-group
           v-else
@@ -161,11 +168,21 @@ import {
 export default {
   name: "Header",
   data: () => ({
+    ok: false,
     search: "",
     drawer: false,
     cartOn: false,
     group: null,
   }),
+  watch: {
+    ok(newValue) {
+      if (newValue == true) {
+        setTimeout(() => {
+          this.ok = false;
+        }, 3000);
+      }
+    },
+  },
   computed: {
     ...mapGetters({
       currentUser: getterTypes.currentUser,
