@@ -1,7 +1,7 @@
 <template>
-  <v-row class="m-1">
+  <v-row class="m-1 ">
     <v-col md="3" sm="3">
-      <v-sheet color="blue lighten-3" class="mb-4" rounded="lg">
+      <v-sheet color="blue lighten-3" class="mb-4 " rounded="lg">
         <v-list color="transparent">
           <v-list-item>
             <v-list-item-content>
@@ -100,8 +100,7 @@
         </v-list>
       </v-sheet>
     </v-col>
-    <v-col id="grid">
-      
+    <v-col id="grid" >
       <v-sheet color="blue lighten-3" class="p-3" min-height="70vh" rounded="lg">
         <!--  -->
         <v-container>
