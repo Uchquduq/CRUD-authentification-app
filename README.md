@@ -1,5 +1,7 @@
 # cv-infinity
 
+https://crud-athentification-app.vercel.app/
+
 ## Project setup
 ```
 npm install
